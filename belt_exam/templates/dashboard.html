@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+  <body>
+    <div class="container">
+        <h1>Hello, {{ session["first"] }}</h1>
+        <a href="/new" class="btn btn-primary" role="button">New Job!</a>
+        <h2>Everyone's Jobs:</h2>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Job</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for jobs in all_jobs %}
+                <tr>
+                    <td>{{ jobs['title'] }}</td>
+                    <td>{{ jobs['location'] }}</td>
+                    <td>
+
+                        <a href="/jobs/{{ jobs['jobs_id'] }}" class="btn btn-warning" role="button">View</a>
+                        {% if session["userid"] == jobs["users_id"] %} 
+                        <a href="/edit/{{ jobs['jobs_id'] }}" class="btn btn-primary" role="button">Edit</a>
+                        <a href="/remove/{{ jobs['jobs_id'] }}" class="btn btn-danger" role="button">Remove</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}                
+                </tbody>
+            </table>
+    </div>
+  </body>
+</html>

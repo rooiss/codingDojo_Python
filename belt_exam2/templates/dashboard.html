@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Belt Exam</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+    .topbar{
+        display: inline-block;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="topbar">
+            <h1>Hello, {{ session["first"] }}</h1>
+            <a href="/new" class="btn btn-primary" role="button">New Trip!</a>
+            <a href="/logout" class="btn btn-danger" role="button">Logout</a>
+        </div>
+        <h2>Your Trips:</h2>
+        <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Destination</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Plan</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trips in all_trips %}
+                {% if session["userid"] == trips["users_users_id"] %} 
+                <tr>
+                    <td><a href="/trips/{{ trips['trips_id'] }}">{{ trips['destination'] }}</a></td>
+                    <td>{{ trips['start_date'] }}</td>
+                    <td>{{ trips['end_date'] }}</td>
+                    <td>{{ trips['plan'] }}</td>
+                    <td>
+                        <a href="/edit/{{ trips['trips_id'] }}" class="btn btn-primary" role="button">Edit</a>
+                        <a href="/remove/{{ trips['trips_id'] }}" class="btn btn-danger" role="button">Remove</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}                
+                </tbody>
+            </table>
+    </div>
+</body>
+</html>
